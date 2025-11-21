@@ -8,7 +8,7 @@ terraform {
 }
 
 provider "aws" {
-  region = "us-east-1"
+  region = "eu-north-1"
 }
 
 data "aws_caller_identity" "current" {}
@@ -138,7 +138,7 @@ resource "aws_db_instance" "database-instance" {
   password               = "T2kVB3zgeN3YbrKS"
   parameter_group_name   = "default.mysql8.0"
   skip_final_snapshot    = true
-  availability_zone      = "us-east-1a"
+  availability_zone      = "eu-north-1"
   db_subnet_group_name   = aws_db_subnet_group.database-subnet-group.name
   vpc_security_group_ids = [aws_security_group.database-security-group.id]
 }
@@ -350,7 +350,7 @@ data "aws_ami" "ecs_optimized_ami" {
 resource "aws_launch_template" "ecs_launch_template" {
   name_prefix   = "ecs-launch-template-"
   image_id      = data.aws_ami.ecs_optimized_ami.id
-  instance_type = "t2.micro"
+  instance_type = "t3.micro"
 
   iam_instance_profile {
     name = aws_iam_instance_profile.ecs-instance-profile.name
