@@ -7,7 +7,7 @@ terraform {
   }
 }
 provider "aws" {
-  region = "us-east-1"
+  region = "eu-north-1"
 }
 
 data "aws_caller_identity" "current" {}
@@ -3445,7 +3445,7 @@ resource "aws_internet_gateway" "goat_gw" {
 resource "aws_subnet" "goat_subnet" {
   vpc_id                  = aws_vpc.goat_vpc.id
   cidr_block              = "192.168.0.0/24"
-  availability_zone       = "us-east-1a"
+  availability_zone       = "eu-north-1"
   map_public_ip_on_launch = true
   tags = {
     Name = "AWS_GOAT App subnet"
@@ -3598,7 +3598,7 @@ data "aws_ami" "goat_ami" {
 
 resource "aws_instance" "goat_instance" {
   ami                  = data.aws_ami.goat_ami.id
-  instance_type        = "t2.micro"
+  instance_type        = "t3.micro"
   iam_instance_profile = aws_iam_instance_profile.goat_iam_profile.name
   subnet_id            = aws_subnet.goat_subnet.id
   security_groups      = [aws_security_group.goat_sg.id]
